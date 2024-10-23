@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      :root {
+        --primary: #6d28d9;
+        --primary-dark: #5b21b6;
+        --secondary: #10b981;
+        --background: #0f172a;
+        --surface: rgba(30, 41, 59, 0.7);
+        --surface-light: rgba(51, 65, 85, 0.5);
+        --text: #f8fafc;
+        --text-muted: #94a3b8;
+        --danger: #ef4444;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: var(--background);
+        color: var(--text);
+        font-family: "system-ui", -apple-system, sans-serif;
+        line-height: 1.6;
+        min-height: 100vh;
+        background-image: radial-gradient(
+            circle at 20% 20%,
+            rgba(124, 58, 237, 0.15) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(16, 185, 129, 0.15) 0%,
+            transparent 50%
+          );
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem;
+        }
+      }
+
+      /* Header Styles */
+      .header {
+        backdrop-filter: blur(10px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--surface);
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav a {
+        color: var(--text);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+        position: relative;
+      }
+
+      .nav a::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background: var(--secondary);
+        transition: width 0.3s ease;
+      }
+
+      .nav a:hover::after {
+        width: 100%;
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+      }
+
+      /* Hero Section */
+      .hero {
+        padding: 4rem 0;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero p {
+        color: var(--text-muted);
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Card Styles */
+      .card {
+        background: var(--surface);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      /* Blog Post Styles */
+      .blog-post {
+        background: var(--surface);
+        border-radius: 1rem;
+        padding: 2rem;
+        margin: 2rem 0;
+        transition: transform 0.3s ease;
+      }
+
+      .blog-date {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      .blog-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+      }
+
+      .code-block {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin: 1rem 0;
+        font-family: "Monaco", monospace;
+        font-size: 0.9rem;
+        overflow-x: auto;
+      }
+
+      .tags {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+      }
+
+      .tag {
+        background: var(--surface-light);
+        padding: 0.25rem 0.75rem;
+        border-radius: 1rem;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+      }
+
+      /* Stats Grid */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+      }
+
+      .stat-card {
+        background: var(--surface);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        text-align: center;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--secondary);
+        margin-bottom: 0.5rem;
+      }
+
+      /* Alert Banner */
+      .alert {
+        background: rgba(239, 68, 68, 0.1);
+        border-left: 4px solid var(--danger);
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 0 0.5rem 0.5rem 0;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      /* Contact Section */
+      .contact {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .contact-info {
+        background: var(--surface);
+        padding: 2rem;
+        border-radius: 1rem;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-in {
+        animation: fadeIn 0.5s ease forwards;
+      }
+
+      /* Mobile Menu Button */
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--text);
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      @media (max-width: 768px) {
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .stats-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--background);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--surface-light);
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav">
+        <div class="logo">Cy6er</div>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#research">Research</a>
+          <a href="#blog">Blog</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <button class="mobile-menu-btn">☰</button>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="hero animate-in">
+        <h1>Web3 Security Researcher</h1>
+        <p>
+          Securing the future of decentralized systems through advanced
+          vulnerability research and ethical hacking.
+        </p>
+      </section>
+
+      <div class="alert">
+        <span>🔔</span>
+        <div>
+          <strong>Active Investigation:</strong> Monitoring potential
+          vulnerability in major DeFi protocol
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">50+</div>
+          <div>Smart Contracts Audited</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">$10M+</div>
+          <div>Funds Secured</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">Top 10</div>
+          <div>Bug Bounty Hunter</div>
+        </div>
+      </div>
+
+      <section id="blog">
+        <h2>Recent Discoveries</h2>
+        <div class="blog-post">
+          <div class="blog-date">October 23, 2024</div>
+          <h3 class="blog-title">
+            Critical Vulnerability: Reentrancy in DeFi Protocol
+          </h3>
+          <p>
+            During routine security assessment of [REDACTED] protocol,
+            discovered critical reentrancy vulnerability in liquidity withdrawal
+            function.
+          </p>
+          <div class="code-block">
+            function withdraw(uint256 amount) external {
+            require(balances[msg.sender] >= amount); (bool success, ) =
+            msg.sender.call{value: amount}(""); // Vulnerable: State update
+            after external call balances[msg.sender] -= amount; }
+          </div>
+          <div class="tags">
+            <span class="tag">DeFi</span>
+            <span class="tag">Smart Contracts</span>
+            <span class="tag">Reentrancy</span>
+          </div>
+        </div>
+
+        <div class="blog-post">
+          <div class="blog-date">October 22, 2024</div>
+          <h3 class="blog-title">NFT Marketplace Access Control Bug</h3>
+          <p>
+            Identified incorrect implementation of ownership verification in
+            popular NFT marketplace.
+          </p>
+          <div class="code-block">
+            // Missing ownership validation function listNFT(uint256 tokenId,
+            uint256 price) public { // Should check ownership first!
+            listings[tokenId] = Listing(msg.sender, price); }
+          </div>
+          <div class="tags">
+            <span class="tag">NFT</span>
+            <span class="tag">Access Control</span>
+            <span class="tag">Bug Bounty</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="contact">
+        <div class="contact-info">
+          <h2>Secure Channels</h2>
+          <p>PGP: 0xD34DB33F</p>
+          <p>ETH: 0x1337...42069</p>
+          <p>Discord: CyPh3r#1337</p>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // Intersection Observer for scroll animations
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("animate-in");
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+        }
+      );
+
+      document.querySelectorAll(".blog-post, .stat-card").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Mobile menu toggle
+      const mobileMenuBtn = document.querySelector(".mobile-menu-btn");
+      const navLinks = document.querySelector(".nav-links");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        navLinks.style.display =
+          navLinks.style.display === "flex" ? "none" : "flex";
+      });
+
+      // Responsive handling
+      window.addEventListener("resize", () => {
+        if (window.innerWidth > 768) {
+          navLinks.style.display = "flex";
+        }
+      });
+    </script>
+  </body>
+</html>

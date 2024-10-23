@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        background: black url("/api/placeholder/400/400") repeat;
+        color: #00ff00;
+        font-family: "Courier New", Courier, monospace;
+        margin: 0;
+        padding: 10px;
+        font-size: 16px;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 5px;
+          font-size: 14px;
+        }
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #000033;
+        border: 3px solid #00ff00;
+        padding: 20px;
+        box-shadow: 10px 10px 0 #006600;
+        width: 100%;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 10px;
+          box-shadow: 5px 5px 0 #006600;
+        }
+      }
+
+      h1,
+      h2,
+      h3 {
+        text-align: center;
+        color: #00ff00;
+        text-shadow: 2px 2px #006600;
+        word-wrap: break-word;
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 1.5em;
+        }
+        h2 {
+          font-size: 1.3em;
+        }
+        h3 {
+          font-size: 1.1em;
+        }
+      }
+
+      .blink {
+        animation: blink 1s step-end infinite;
+        text-align: center;
+      }
+
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .nav {
+        background: #006600;
+        padding: 10px;
+        margin: 20px 0;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .nav a {
+        color: #00ff00;
+        text-decoration: none;
+        padding: 5px 15px;
+        border: 2px solid #00ff00;
+        background: #000033;
+        white-space: nowrap;
+        min-width: 100px;
+      }
+
+      @media (max-width: 480px) {
+        .nav {
+          flex-direction: column;
+          gap: 5px;
+        }
+        .nav a {
+          width: 100%;
+        }
+      }
+
+      .nav a:hover {
+        background: #00ff00;
+        color: #000033;
+      }
+
+      .matrix-rain {
+        font-family: "Courier New", Courier, monospace;
+        font-size: 12px;
+        color: #00ff00;
+        position: relative;
+        height: 50px;
+        overflow: hidden;
+        margin: 20px 0;
+        text-align: center;
+      }
+
+      .achievement {
+        border: 2px solid #00ff00;
+        margin: 10px 0;
+        padding: 10px;
+        background: #000066;
+        word-wrap: break-word;
+      }
+
+      .counter {
+        text-align: center;
+        font-size: 12px;
+        color: #666666;
+        margin-top: 20px;
+      }
+
+      img {
+        border: 2px solid #00ff00;
+        margin: 10px auto;
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* Blog Styles */
+      .blog-post {
+        border: 2px dashed #00ff00;
+        margin: 20px 0;
+        padding: 15px;
+        background: #000044;
+      }
+
+      .blog-date {
+        color: #ffff00;
+        font-size: 0.8em;
+        text-align: right;
+        margin-bottom: 10px;
+      }
+
+      .blog-title {
+        border-bottom: 1px solid #00ff00;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+      }
+
+      .blog-content {
+        line-height: 1.6;
+      }
+
+      .code-block {
+        background: #001100;
+        border: 1px solid #00ff00;
+        padding: 10px;
+        margin: 10px 0;
+        font-family: monospace;
+        white-space: pre-wrap;
+        overflow-x: auto;
+        font-size: 0.9em;
+      }
+
+      @media (max-width: 768px) {
+        .code-block {
+          font-size: 0.8em;
+        }
+      }
+
+      .blog-tags {
+        margin-top: 10px;
+        font-size: 0.9em;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+
+      .tag {
+        background: #006600;
+        padding: 2px 8px;
+        border: 1px solid #00ff00;
+        white-space: nowrap;
+      }
+
+      .blog-navigation {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      @media (max-width: 480px) {
+        .blog-navigation {
+          flex-direction: column;
+        }
+      }
+
+      .new-post {
+        background: #006600;
+        border: 2px solid #00ff00;
+        color: #00ff00;
+        padding: 5px 15px;
+        cursor: pointer;
+        font-family: "Courier New", Courier, monospace;
+        min-width: 120px;
+      }
+
+      .new-post:hover {
+        background: #00ff00;
+        color: #000033;
+      }
+
+      /* Custom scrollbar for webkit browsers */
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #000033;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #00ff00;
+        border: 2px solid #000033;
+      }
+
+      /* Handle marquee responsiveness */
+      marquee {
+        width: 100%;
+        overflow: hidden;
+      }
+
+      @media (max-width: 480px) {
+        marquee {
+          font-size: 0.9em;
+        }
+      }
+
+      /* Responsive pre tag for contact info */
+      pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <marquee scrollamount="10" behavior="alternate">
+        <span style="color: red">⚠️ CRITICAL VULNERABILITIES DETECTED ⚠️</span>
+      </marquee>
+
+      <h1>CyPh3r_H4ck3r</h1>
+      <div class="blink">[ Web3 Security Researcher ]</div>
+
+      <div class="nav">
+        <a href="#about">About</a>
+        <a href="#blog">Blog</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <img
+        src="/api/placeholder/150/150"
+        alt="Hacker Avatar"
+        width="150"
+        height="150"
+      />
+
+      <div class="achievement">
+        <h2 id="about">Mission Status:</h2>
+        <p>
+          Elite Web3 security researcher specializing in smart contract auditing
+          and blockchain vulnerability assessment. White hat hacker with a focus
+          on DeFi protocols and NFT marketplaces.
+        </p>
+      </div>
+
+      <div class="matrix-rain">0101 SECURING THE BLOCKCHAIN 1010</div>
+
+      <h2 id="blog">Security Research Log</h2>
+      <div class="blog-navigation">
+        <button
+          class="new-post"
+          onclick="alert('Access Denied: Clearance Level 5 Required')"
+        >
+          New Post
+        </button>
+        <button class="new-post" onclick="alert('Archived posts encrypted')">
+          Archives
+        </button>
+      </div>
+
+      <div class="blog-post">
+        <div class="blog-date">23.10.2024 20:45 UTC</div>
+        <h3 class="blog-title">
+          Critical Vulnerability: Reentrancy in DeFi Protocol
+        </h3>
+        <div class="blog-content">
+          <p>
+            During routine security assessment of [REDACTED] protocol,
+            discovered critical reentrancy vulnerability in liquidity withdrawal
+            function.
+          </p>
+          <div class="code-block">
+            function withdraw(uint256 amount) external {
+            require(balances[msg.sender] >= amount); (bool success, ) =
+            msg.sender.call{value: amount}(""); // Vulnerable: State update
+            after external call balances[msg.sender] -= amount; }
+          </div>
+          <p>
+            Impact: Potential recursive calls could drain protocol. Reported to
+            team, patch incoming.
+          </p>
+        </div>
+        <div class="blog-tags">
+          <span class="tag">DeFi</span>
+          <span class="tag">Smart Contracts</span>
+          <span class="tag">Reentrancy</span>
+        </div>
+      </div>
+
+      <div class="blog-post">
+        <div class="blog-date">22.10.2024 15:13 UTC</div>
+        <h3 class="blog-title">NFT Marketplace Access Control Bug</h3>
+        <div class="blog-content">
+          <p>
+            Identified incorrect implementation of ownership verification in
+            popular NFT marketplace.
+          </p>
+          <div class="code-block">
+            // Missing ownership validation function listNFT(uint256 tokenId,
+            uint256 price) public { // Should check ownership first!
+            listings[tokenId] = Listing(msg.sender, price); }
+          </div>
+          <p>Status: Patched in latest release. Bug bounty awarded.</p>
+        </div>
+        <div class="blog-tags">
+          <span class="tag">NFT</span>
+          <span class="tag">Access Control</span>
+          <span class="tag">Bug Bounty</span>
+        </div>
+      </div>
+
+      <div class="achievement">
+        <h2 id="achievements">Critical Discoveries:</h2>
+        <ul>
+          <li>
+            🏆 Discovered critical vulnerability in [REDACTED] DEX protocol
+          </li>
+          <li>🔒 Audited 50+ smart contracts</li>
+          <li>💰 Recovered $10M+ in potentially lost funds</li>
+          <li>🏅 Top 10 bug bounty hunter on [REDACTED] platform</li>
+        </ul>
+      </div>
+
+      <div class="achievement">
+        <h2 id="contact">Secure Communication Channels:</h2>
+        <pre>
+PGP: 0xD34DB33F
+ETH: 0x1337...42069
+Discord: CyPh3r#1337
+            </pre
+        >
+      </div>
+
+      <div class="counter">
+        <img src="/api/placeholder/88/31" alt="Visitor Counter" />
+        visitors since 1995
+      </div>
+    </div>
+
+    <script>
+      // Matrix rain effect
+      function createMatrixRain() {
+        const rain = document.querySelector(".matrix-rain");
+        let text = "";
+        for (let i = 0; i < 100; i++) {
+          text += Math.random() > 0.5 ? "1" : "0";
+        }
+        rain.textContent = text;
+      }
+      setInterval(createMatrixRain, 100);
+
+      // Responsive navigation for mobile
+      document.addEventListener("DOMContentLoaded", function () {
+        const nav = document.querySelector(".nav");
+        const navHeight = nav.offsetHeight;
+        nav.style.transition = "height 0.3s ease";
+      });
+    </script>
+  </body>
+</html>
